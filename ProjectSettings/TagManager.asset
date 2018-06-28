@@ -13,6 +13,8 @@ TagManager:
   - enemySpawnPoint
   - tpArea
   - timeDisplay
+  - PlayerGun
+  - GunSlide
   layers:
   - Default
   - TransparentFX

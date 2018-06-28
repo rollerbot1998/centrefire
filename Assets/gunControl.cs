@@ -48,7 +48,7 @@ public class gunControl : MonoBehaviour {
     {
          handScript = GetComponent<Hand>();
         shotsRemaining = magSize;
-        slide = gameObject.transform.Find("pistol/slide");
+        slide = GameObject.FindWithTag("GunSlide").transform;
         audioSource = GetComponent<AudioSource>();
     }
 
