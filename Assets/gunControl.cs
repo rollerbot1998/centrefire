@@ -19,7 +19,7 @@ public class gunControl : MonoBehaviour {
     public AudioClip slideForward;
 
     //timer default
-    private float TimeBettwenShots = .0f;
+    private float TimeBettwenShots = .1f;
     //current timer
     private float shotTimer = 0;
     //Bullet cull time
@@ -34,6 +34,8 @@ public class gunControl : MonoBehaviour {
     private int magCullTime = 5;
     //if mag is present
     private bool magInGun = true;
+    //slide move timer
+    private float slideMoveTimer;
     //slide referance
     private Transform slide;
     //audio saurce
@@ -92,6 +94,22 @@ public class gunControl : MonoBehaviour {
 
         }
 
+        if (slideMoveTimer > 0)
+        {
+            slideMoveTimer -= Time.deltaTime;
+
+            //when it hits 0 move slide back
+            if (slideMoveTimer <= 0)
+            {
+                //check shots remaining
+                if (shotsRemaining != 0)
+                {
+                    moveSlideForward();
+                }
+            }
+        }
+
+        //mag collision
         if (magInGun == false)
         {
                       
@@ -157,6 +175,10 @@ public class gunControl : MonoBehaviour {
 
         //play sound
         audioSource.PlayOneShot(shot, 1F);
+
+        //move slide
+        moveSlideBack();
+        slideMoveTimer = 0.05f;
     }
 
     //used to check if mag is at 0 and start timer
@@ -206,15 +228,22 @@ public class gunControl : MonoBehaviour {
     private void moveSlideBack()
     {
         slide.transform.localPosition = new Vector3(0,0,slideDistance);
-        //play sound
-        audioSource.PlayOneShot(slideBack, 0.4F);
+        //play sound based on shots left
+        if (shotsRemaining != 0)
+        {
+            audioSource.PlayOneShot(slideBack, 0.1F);
+        }
+        else
+        {
+            audioSource.PlayOneShot(slideBack, 0.4F);
+        }
     } 
 
     private void moveSlideForward ()
     {
         slide.transform.localPosition = new Vector3(0, 0, 0);
         //play sound
-        audioSource.PlayOneShot(slideForward, 0.4F);
+        audioSource.PlayOneShot(slideForward, 0.1F);
     }
 
     void spawnCasing()

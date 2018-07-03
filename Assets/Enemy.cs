@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour {
     {
         // Create the Bullet from the Bullet Prefab
         var bullet = (GameObject)Instantiate(
-            Resources.Load("bulletPrefab") as GameObject,
+            Resources.Load("prefabs/gunsAndAmmo/bulletPrefab") as GameObject,
             firePoint.position,
            firePoint.rotation);
 
